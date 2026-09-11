@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adegbiji Architectural - Building Your Vision</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  background: #f5f5f5;
+  color: #333;
+}
+
+header {
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+              url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80') center/cover;
+  color: white;
+  text-align: center;
+  padding: 100px 20px;
+}
+
+header h1 {
+  font-size: 48px;
+  letter-spacing: 3px;
+}
+
+header p {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+nav {
+  background: #1a1a1a;
+  padding: 15px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 20px;
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: #d4af37;
+}
+
+section {
+  padding: 60px 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+h2 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #1a1a1a;
+}
+
+.services {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.card h3 {
+  color: #d4af37;
+  margin-bottom: 10px;
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.projects img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.contact {
+  background: #1a1a1a;
+  color: white;
+  text-align: center;
+}
+
+.btn {
+  background: #d4af37;
+  color: black;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+.btn:hover {
+  background: #c19b2e;
+}
+
+footer {
+  background: black;
+  color: #aaa;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .services,
+  .projects {
+    grid-template-columns: 1fr;
+  }
+
+  header h1 {
+    font-size: 32px;
+    letter-spacing: 1px;
+  }
+
+  nav a {
+    margin: 0 12px;
+    font-size: 15px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>ADEGBIJI ARCHITECTURAL</h1>
+  <p>Modern Designs. Solid Structures. Timeless Architecture.</p>
+  <button class="btn" onclick="window.location='#contact'">Get A Quote</button>
+</header>
+
+<nav>
+  <a href="#about">About</a>
+  <a href="#services">Services</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<section id="about">
+  <h2>About Adegbiji Architectural</h2>
+  <p style="text-align:center; line-height:1.8;">
+    Adegbiji Architectural is a design and construction firm dedicated to creating beautiful, functional, and sustainable spaces across Nigeria and beyond.
+    From residential homes to commercial buildings, we turn your vision into reality with precision and creativity.
+  </p>
+</section>
+
+<section id="services">
+  <h2>Our Services</h2>
+  <div class="services">
+    <div class="card">
+      <h3>Architectural Design</h3>
+      <p>2D/3D house plans, building elevations, and interior layouts tailored to you.</p>
+    </div>
+    <div class="card">
+      <h3>Construction</h3>
+      <p>Full building construction and project management from foundation to finishing.</p>
+    </div>
+    <div class="card">
+      <h3>Renovation & Interior</h3>
+      <p>Home remodeling, office spaces, and luxury interior designs.</p>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <h2>Recent Projects</h2>
+  <div class="projects">
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80" alt="Modern Duplex">
+    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80" alt="Luxury Villa">
+    <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80" alt="Office Building">
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <h2 style="color:white;">Let's Build Together</h2>
+  <p>Lagos, Nigeria | 07023054092</p>
+  <p>info@adegbijiq.com</p>
+  <button class="btn" onclick="window.open('https://wa.me/2347087924203', '_blank')">Chat on WhatsApp</button>
+</section>
+
+<footer>
+  <p>© 2026 Adegbiji Architectural. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
