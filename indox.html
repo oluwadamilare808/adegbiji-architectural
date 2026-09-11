@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>🏦 AdeBank</title>
+<style>
+  body { font-family: Arial; background: #003366; color: white; text-align: center; margin: 0; padding: 20px; }
+  .container { background: white; color: #003366; width: 90%; max-width: 400px; margin: 20px auto; padding: 20px; border-radius: 10px; }
+  input, button { width: 90%; padding: 12px; margin: 8px 0; border-radius: 5px; border: 1px solid #ccc; }
+  button { background: #003366; color: white; cursor: pointer; border: none; }
+  .logout { background: red; } .admin { background: purple; }
+  .page { display: none; } .active { display: block; }
+</style>
+</head>
+<body>
+<div id="loginPage" class="container page active">
+  <h1>🏦 AdeBank</h1>
+  <input type="text" id="acc" placeholder="Account Number">
+  <input type="password" id="pin" placeholder="4 Digit PIN">
+  <button onclick="login()">Login</button>
+  <button onclick="createAcc()">Create Account</button>
+</div>
+<div id="dashboardPage" class="container page">
+  <h1>🏦 AdeBank Dashboard</h1>
+  <h2>Balance: ₦<span id="balance">0</span></h2>
+  <input type="number" id="deposit" placeholder="Deposit Amount"><button onclick="deposit()">Deposit</button>
+  <input type="number" id="withdraw" placeholder="Withdraw Amount"><button onclick="withdraw()">Withdraw</button>
+  <input type="text" id="toAcc" placeholder="Recipient Account"><input type="number" id="transfer" placeholder="Amount"><button onclick="transfer()">Transfer</button>
+  <button onclick="showPage('historyPage')">📜 History</button>
+  <button class="admin" onclick="showPage('adminPage')">👑 Admin</button>
+  <button class="logout" onclick="logout()">Logout</button>
+</div>
+<div id="historyPage" class="container page"><h1>📜 History</h1><ul id="history"></ul><button onclick="showPage('dashboardPage')">Back</button></div>
+<div id="adminPage" class="container page"><h1>👑 Admin</h1><p>PIN: 0000</p><input type="password" id="adminPin" placeholder="Admin PIN"><button onclick="adminLogin()">View All</button><div id="adminData"></div><button onclick="showPage('dashboardPage')">Back</button></div>
+<script>
+let currentAcc = localStorage.getItem('currentAcc');
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');if(id=='dashboardPage')loadBalance();if(id=='historyPage')loadHistory();}
+function login(){let a=document.getElementById('acc').value,p=document.getElementById('pin').value;if(localStorage.getItem(a+'_pin')==p){localStorage.setItem('currentAcc',a);currentAcc=a;showPage('dashboardPage');}else alert('Wrong login');}
+function createAcc(){let n=prompt("Name:"),p=prompt("4 digit PIN:");let a='10'+Math.floor(1000+Math.random()*9000);localStorage.setItem(a+'_name',n);localStorage.setItem(a+'_pin',p);localStorage.setItem(a+'_bal',0);localStorage.setItem(a+'_hist','[]');alert('Account: '+a);}
+function saveHistory(a,t){let h=JSON.parse(localStorage.getItem(a+'_hist')||'[]');h.push(new Date().toLocaleString()+' - '+t);localStorage.setItem(a+'_hist',JSON.stringify(h));}
+function deposit(){let amt=+document.getElementById('deposit').value;let bal=+localStorage.getItem(currentAcc+'_bal')+amt;localStorage.setItem(currentAcc+'_bal',bal);saveHistory(currentAcc,`Deposited ₦${amt}`);loadBalance();}
+function withdraw(){let amt=+document.getElementById('withdraw').value;let bal=+localStorage.getItem(currentAcc+'_bal');if(bal>=amt){localStorage.setItem(currentAcc+'_bal',bal-amt);saveHistory(currentAcc,`Withdrew ₦${amt}`);loadBalance();}else alert('No money');}
+function transfer(){let to=document.getElementById('toAcc').value,amt=+document.getElementById('transfer').value,bal=+localStorage.getItem(currentAcc+'_bal');if(localStorage.getItem(to+'_bal')&&bal>=amt){localStorage.setItem(currentAcc+'_bal',bal-amt);localStorage.setItem(to+'_bal',+localStorage.getItem(to+'_bal')+amt);saveHistory(currentAcc,`Sent ₦${amt} to ${to}`);saveHistory(to,`Received ₦${amt} from ${currentAcc}`);alert('Sent');loadBalance();}}
+function loadBalance(){if(currentAcc)document.getElementById('balance').innerText=(+localStorage.getItem(currentAcc+'_bal')).toLocaleString();}
+function loadHistory(){let h=JSON.parse(localStorage.getItem(currentAcc+'_hist')||'[]');document.getElementById('history').innerHTML=h.reverse().map(x=>`<li>${x}</li>`).join('')||'<li>None</li>';}
+function adminLogin(){if(document.getElementById('adminPin').value=='0000'){let all=[];for(let i=0;i<localStorage.length;i++){let k=localStorage.key(i);if(k.includes('_name')){let a=k.replace('_name','');all.push(`<p><b>${a}</b> - ${localStorage.getItem(a+'_name')} - ₦${(+localStorage.getItem(a+'_bal')).toLocaleString()}</p>`);}}document.getElementById('adminData').innerHTML=all.join('');}}
+function logout(){localStorage.removeItem('currentAcc');currentAcc=null;showPage('loginPage');}
+window.onload=()=>{if(currentAcc)showPage('dashboardPage')}
+</script>
+</body>
+</html>
